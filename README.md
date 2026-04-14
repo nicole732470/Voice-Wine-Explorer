@@ -1,29 +1,22 @@
-# Voice Wine Explorer 🍷
+# 🍷 Voice Wine Explorer
 
----
+A grounded, voice-enabled wine search powered by LLMs and deterministic query execution.
 
 ## Overview
 
-This project demonstrates how to combine large language models (LLMs) with structured data systems.
+Instead of letting the AI generate answers directly, this system uses a three-step approach to ensure reliable, grounded results:
 
-Instead of letting the AI generate answers directly, the system:
-
-1. Uses AI to parse natural language into structured queries  
-2. Executes those queries deterministically on a local dataset  
-3. Returns grounded, reliable results  
-
----
+1. Use AI to parse natural language into structured queries
+2. Execute those queries deterministically on a local dataset
+3. Return results grounded in real data — no hallucination
 
 ## Features
 
-- Natural language wine search (e.g. “best wines under $50”)
-- Voice input using browser speech recognition
-- AI-powered query parsing (via OpenRouter)
+- Natural language wine search (e.g. "best wines under $50")
+- Voice input via browser Speech Recognition API
+- AI-powered query parsing via OpenRouter
 - Deterministic query execution on local data
-- Text-to-speech playback of answers
-- Fully grounded responses (no hallucination)
-
----
+- Text-to-speech playback of results
 
 ## Example Questions
 
@@ -32,84 +25,59 @@ Instead of letting the AI generate answers directly, the system:
 - Show me sparkling wines from France under $80
 - Which bottles would make a good housewarming gift?
 
----
-
 ## Architecture
 
 ### 1. User Input
-- Text input or voice input (SpeechRecognition API)
+
+Text typed directly, or spoken via the browser `SpeechRecognition` API.
 
 ### 2. AI Query Parsing
-- Sends user question to OpenRouter API
-- Converts it into structured JSON:
+
+Sends the user's question to OpenRouter and converts it into structured JSON:
 
 ```json
 {
   "filters": [...],
-  "sort": {...},
+  "sort": { "field": "rating", "order": "desc" },
   "limit": 3
 }
+```
 
-### 3. Query Execution (runWineQuery.js)
-	•	Applies:
-	•	filter (WHERE)
-	•	sort (ORDER BY)
-	•	limit (LIMIT)
-	•	Works like a simplified SQL engine in JavaScript
+### 3. Query Execution
+
+Runs the structured query against an in-memory dataset via `runWineQuery.js` — a lightweight JavaScript engine supporting filter, sort, and limit, similar to a simplified SQL engine.
 
 ### 4. Output
-	•	Displays matching wines
-	•	Speaks results using browser speech synthesis
 
----
+Displays matching wines in the UI and speaks results aloud using the browser `SpeechSynthesis` API.
 
-## Why This Design
+## Design Trade-offs
 
-Instead of using SQL directly, this project uses an in-memory dataset + JavaScript query engine.
-
-Trade-offs
-
-Pros
-	•	Simple and fast to build
-	•	Fully deterministic
-	•	Easy to debug
-	•	Perfect for small datasets
-
-Cons
-	•	Not scalable for large data
-	•	No indexing or persistence
-
----
-
+| | Pros | Cons |
+|---|---|---|
+| | Simple and fast to build | Not scalable for large datasets |
+| | Fully deterministic | No indexing or persistence |
+| | Easy to debug | |
+| | Perfect for small datasets | |
 
 ## Tech Stack
-	•	React (Vite)
-	•	Node.js (Express)
-	•	OpenRouter API (LLM)
-	•	Web Speech API (speech-to-text & text-to-speech)
 
----
+| Layer | Technology |
+|---|---|
+| Frontend | React (Vite) |
+| Backend | Node.js (Express) |
+| LLM | OpenRouter API |
+| Speech | Web Speech API |
 
-## Project Structure
+## Getting Started
 
-src/
-  App.jsx
-  data/
-    wines.json
-  utils/
-    runWineQuery.js
-server/
-  server.js
-
----
-
-## How to Run
-
-1. Install dependencies
+```bash
+# 1. Install dependencies
 npm install
-2. Start backend
-node server/server.js
-3. Start frontend
-npm run dev
 
----
+# 2. Start backend
+node server/server.js
+
+# 3. Start frontend
+npm run dev
+```
