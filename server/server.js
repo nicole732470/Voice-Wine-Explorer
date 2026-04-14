@@ -71,7 +71,18 @@ Important rules:
 9. Use "contains" for natural-language text matching unless a numeric comparison is clearly needed.
 10. If the user asks for recommendations like gifts or housewarming, use intent "recommend".
 11. Default limit to 5, but use 3 for "best", "top", "highest-rated", or recommendation-style requests.
-
+12. Only parse the final user question provided after "Now parse this question:".
+13. Do not reuse or copy filters from the examples unless they are directly supported by the current user question.
+14. If the user question is vague, meaningless, or does not map clearly to the dataset, return:
+{
+  "intent": "unsupported",
+  "filters": [],
+  "sort": { "field": "none", "order": "none" },
+  "limit": 5,
+  "select": ["Name", "Producer", "Retail", "Country", "Region", "Varietal", "color"],
+  "explanation": "The question is unclear or not grounded enough to query the dataset."
+}
+  
 Return JSON with this exact schema:
 {
   "intent": "search | recommend | unsupported",
