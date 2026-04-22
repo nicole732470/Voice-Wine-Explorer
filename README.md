@@ -1,6 +1,7 @@
 # 🍷 Voice Wine Explorer
 
 A grounded, voice-enabled wine search powered by LLMs and deterministic query execution.
+video demo: https://northwestern.zoom.us/rec/share/REpDPpHlyM-FodpSwHF0yAYXX_om5jgqn_2-LgPOZIKO76JZUFx0E1b_a5W7j-RJ.KW6V2PVmapVYytkx?startTime=1776215158000
 
 ## Overview
 
